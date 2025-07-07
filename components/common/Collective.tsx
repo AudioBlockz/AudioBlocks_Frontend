@@ -4,7 +4,7 @@ import Image from "next/image"
 
 const Collective = () => {
   return (
-    <div className="relative w-full h-[500px] md:h-[768px]">
+    <div className="relative w-full h-[500px] md:h-screen">
       <Image
         src="/collective.svg"
         alt="Featured content"
@@ -32,4 +32,4 @@ const Collective = () => {
   )
 }
 
-export default Collective
+export default Collective;

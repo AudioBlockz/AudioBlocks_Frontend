@@ -256,9 +256,9 @@ export default function NftCollection() {
   }
 
   return (
-    <div className="min-h-screen bg-black px-8 py-12">
+    <div className="min-h-screen max-w-11/12 m-auto bg-black px-8 py-12">
       {/* Header */}
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between w-full max-w-7xl mx-auto mb-12 px-4">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between mb-12">
   <h1
     className={`${inter.className} capitalize text-3xl sm:text-4xl md:text-[48px] font-semibold leading-tight tracking-normal`}
   >
@@ -276,7 +276,7 @@ export default function NftCollection() {
 </div>
 
       {/* Tabs */}
-    <div className="max-w-7xl mx-auto mb-7">
+    <div className="max-w-full mx-auto mb-7">
   <div className="flex space-x-4">
     {tabs.map((tab) => (
       <button
@@ -297,7 +297,7 @@ export default function NftCollection() {
 
 
       {/* Cards Grid */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-full mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {getTabData().map((item) => renderCard(item))}
         </div>
