@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Play, ChevronLeft, ChevronRight } from "lucide-react"
+import { Play, ChevronLeft, ChevronRight, ArrowBigRight, ArrowRight, ArrowLeft } from "lucide-react"
 // import { SlLike } from "react-icons/sl"
 import { FcLike } from "react-icons/fc"
 
@@ -407,9 +407,9 @@ export default function MusicBrowser() {
   }
 
   return (
-    <div className="flex h-screen bg-black w-5/6 mx-auto mt-10">
+    <div className="flex h-screen gap-6 bg-black w-11/12 mx-auto mt-10">
       {/* Left Sidebar */}
-      <div className="w-80 bg-black p-6">
+      <div className="bg-black py-3">
         <div className="mb-6">
           <h2 className="text-2xl font-bold flex items-center gap-2 text-white">
             {/* <Music className="h-6 w-6" /> */}
@@ -422,7 +422,7 @@ export default function MusicBrowser() {
             <Button
               key={playlist.id}
               variant={selectedPlaylist.id === playlist.id ? "default" : "ghost"}
-              className={`w-full flex rounded-4xl text-left h-auto p-4 ${
+              className={`w-full flex rounded-4xl text-left h-auto p-2 px-2 ${
                 selectedPlaylist.id === playlist.id
                   ? "bg-black hover:bg-[#D2045B] text-white"
                   : "text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -430,7 +430,7 @@ export default function MusicBrowser() {
               onClick={() => setSelectedPlaylist(playlist)}
             >
               <div>
-                <div className="font-medium">{playlist.name}</div>
+                <div className="font-medium text-left">{playlist.name}</div>
                 {/* <div className={`text-sm ${selectedPlaylist.id === playlist.id ? "text-blue-100" : "text-gray-400"}`}>
                   {playlist.songs.length} songs
                 </div> */}
@@ -445,20 +445,20 @@ export default function MusicBrowser() {
             <Button
               onClick={prevSlide}
               size="icon"
-              className="rounded-full bg-gray-800 hover:bg-gray-700 text-white"
+              className="rounded-full bg-[#1E181D] cursor-pointer hover:bg-gray-700 text-white"
               disabled={totalSlides <= 1}
             >
-              <ChevronLeft className="h-8 w-8" />
+              <ArrowLeft className="h-8 w-8 text-[#F2AFC9]" />
             </Button>
 
            
             <Button
               onClick={nextSlide}
               size="icon"
-              className="rounded-full bg-gray-800 hover:bg-gray-700 text-white"
+              className="rounded-full bg-[#1E181D] cursor-pointer hover:bg-gray-700 text-white"
               disabled={totalSlides <= 1}
             >
-              <ChevronRight className="h-8 w-8" />
+              <ArrowRight className="h-8 w-8 text-[#F2AFC9]" />
             </Button>
           </div>
 

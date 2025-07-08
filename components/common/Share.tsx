@@ -1,35 +1,37 @@
-"use client"
+'use client';
 
-import Image from "next/image"
+import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Share = () => {
   return (
-    <div className="relative w-full h-[500px] md:h-[768px]">
-      <Image
-        src="/smart.svg"
-        alt="Featured content"
-        fill
-        className="object-cover rounded-lg shadow-2xl"
-        priority
-      />
-
-      <div className="relative px-4 sm:px-8 md:px-16 lg:ml-56 top-32 md:top-64">
-        <div className="w-full max-w-[554px] mb-4 md:mb-6">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-            Share Your Sound
-          </h1>
-        </div>
-
-        <div className="w-full max-w-[419px]">
-          <p className="font-poppins font-semibold text-sm sm:text-base leading-5 sm:leading-6 tracking-normal text-white">
-            Mint your music as NFTs, earn royalties on every <br className="hidden sm:block" />
-            resale, and connect directly with fans who believe <br className="hidden sm:block" />
-            in your art.
+    <section
+      className="relative bg-cover bg-center min-h-screen flex justify-center items-center px-6 md:px-20 text-white"
+      style={{
+        backgroundImage: "url('/smart.svg')", // Replace with your actual image path
+      }}
+    >
+      <div className="flex flex-col md:flex-row justify-between items-center w-full">
+        {/* Right Text */}
+        <div className="max-w-xl text-center md:text-left">
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight">Share your sound</h1>
+          <p className="mt-4 text-sm md:text-base text-white/80">
+            Mint your music as NFTs, earn royalties on every resale, and connect directly with fans
+            who believe in your art.
           </p>
         </div>
-      </div>
-    </div>
-  )
-}
 
-export default Share
+        {/* Left Box */}
+        <Link href="#" className="bg-[#1E181D] flex flex-col justify-between items-end md:mt-50 text-white p-8 rounded-xl">
+          <div className="mb-3">
+            <ArrowUpRight className="h-8 w-8 text-right text-white" />
+          </div>
+          <p className="text-base text-left font-semibold">Sign Up <br/> As Artist </p>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
+export default Share;

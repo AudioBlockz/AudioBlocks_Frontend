@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-zinc-900 text-[#A7AAB5] py-12">
-        <div className="max-w-11/12 mx-auto items-center grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="w-11/12 mx-auto items-center grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Info */}
           <div>
             <Image src="/logo.png" alt="" height={90} width={90} className="mb-4" />

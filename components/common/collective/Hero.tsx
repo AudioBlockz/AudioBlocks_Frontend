@@ -26,7 +26,7 @@ const Hero = () => {
           </p>
 
           {/* CTA Button */}
-          <div className=" m-auto mt-20 w-2/12 flex">
+          <div className=" m-auto mt-10 md:mt-20 w-1/5 flex">
             <Link href="/" className="bg-[#D2045B] hover:bg-pink-700 text-white p-5 rounded-lg font-medium flex flex-col shadow-lg transition">
               <FiArrowUpRight className="text-3xl mb-4 ml-15" />
               <span className='text-base text-left'>Join the AudioBlock Collective</span>

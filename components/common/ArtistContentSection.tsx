@@ -68,9 +68,9 @@ export default function MusicBrowser() {
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist>(playlists[0])
 
   return (
-    <div className="flex h-screen bg-black w-5/6 mx-auto mt-10">
+    <div className="flex h-screen bg-black w-11/12 mx-auto mt-10">
       {/* Left Sidebar */}
-      <div className="w-80  bg-black p-6">
+      <div className="w-80  bg-black">
         <div className="mb-6">
           <h2 className="text-2xl font-bold flex items-center gap-2 text-white">
             {/* <Music className="h-6 w-6" /> */}
