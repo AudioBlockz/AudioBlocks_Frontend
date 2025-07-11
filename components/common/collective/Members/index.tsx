@@ -16,17 +16,17 @@ const Members = () => {
     {
       name: 'Misty Brown',
       role: 'Artist',
+      image: '/home/frame2.jpg', // Replace with actual image path
+    },
+    {
+      name: 'Misty Brown',
+      role: 'Artist',
       image: '/image2.jpg', // Replace with actual image path
     },
     {
       name: 'Misty Brown',
       role: 'Artist',
-      image: '/AFRO.jpg', // Replace with actual image path
-    },
-    {
-      name: 'Misty Brown',
-      role: 'Artist',
-      image: '/tech.jpg', // Extra for sliding
+      image: '/home/frame1.jpg', // Extra for sliding
     },
   ];
 
@@ -65,17 +65,17 @@ const Members = () => {
   };
   return (
     <>
-      <section className="w-11/12 mx-auto py-12">
-        <div className="flex justify-between border-b border-[#151515] pb-5 items-center">
-          <h1 className="font-semibold text-2xl md:text-4xlleading-[100%] tracking-[0%] capitalize font-poppins">
-            Meet The Collective
+      <section className="w-4/5 mx-auto py-10">
+        <div className="flex justify-between border-b border-[#151515] pb-7 items-center">
+          <h1 className="font-semibold text-[#A3A3A3] text-2xl md:text-4xl leading-[100%] tracking-[0%] capitalize font-poppins">
+            <span className='text-white'>Meet</span>  The Collective
           </h1>
           <button className="bg-[#1E181D] cursor-pointer rounded-full p-5">
             <ArrowRight className="text-7xl -rotate-45 text-[#F2AFC9]" />
           </button>
         </div>
 
-        <div className="relative py-8">
+        <div className="relative py-4">
           <Slider {...collectiveSettings}>
             {collectiveArtists.map((artist, index) => (
               <div key={index} className="px-4">
@@ -90,7 +90,7 @@ const Members = () => {
                 </div>
                 <div className="py-2 text-center md:text-left text-white">
                   <p className="text-lg font-bold">{artist.name}</p>
-                  <p className="text-sm font-medium">{artist.role}</p>
+                  <p className="text-sm  font-normal">{artist.role}</p>
                 </div>
               </div>
             ))}

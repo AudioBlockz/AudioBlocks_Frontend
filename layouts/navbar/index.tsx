@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,6 +16,16 @@ const navLinks = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20); // adjust 20 as needed
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Utility function for active link styling
   const linkClass = (href: string) =>
@@ -47,7 +57,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full z-30 sticky top-4">
+    <nav
+      className={`w-full z-30 sticky top-0 py-4 transition-all duration-300 ${
+        scrolled ? 'bg-[#0f0f0f]/80 backdrop-blur-lg ' : ''
+      }`}
+    >
       <div className="flex h-[51px] items-center justify-between py-4 max-w-11/12 mx-auto">
         {/* Logo */}
         <div className="flex items-center gap-2">

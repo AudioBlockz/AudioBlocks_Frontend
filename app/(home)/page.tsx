@@ -1,20 +1,22 @@
-import Hero from '../../components/common/Hero';
-import Featured from '../../components/common/Featured';
-import Share from '../../components/common/Share';
-import Discover from '../../components/common/Discover';
-import Collective from '../../components/common/Collective';
+import Hero from '../../components/common/home/Hero';
+import Featured from '../../components/common/home/Featured';
+import HowItWorks from '../../components/common/home/HowItWorks';
+import Discover from '../../components/common/home/Discover';
+import Collective from '../../components/common/home/Experience';
+import GoToTopButton from '@/components/common/home/GoToTopButton';
+import SoundsSection from '@/components/common/home/SoundSection';
+import Experience from '../../components/common/home/Experience';
 
 export default function Home() {
   return (
     <>
       <Hero />
       <Featured />
-      <Share />
+      <SoundsSection/>
+      <HowItWorks />
       <Discover />
-      <Collective
-        title="Where Artists Thrive And Where Fans Belong "
-        content="Be part of a movement redefining music ownership. Collect exclusive NFT tracks, support visionary artists, and own a piece of sonic history."
-      />
+      <Experience/>
+      <GoToTopButton/>
     </>
   );
 }

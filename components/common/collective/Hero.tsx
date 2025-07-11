@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowUpRight } from 'react-icons/fi';
@@ -5,34 +6,38 @@ import { FiArrowUpRight } from 'react-icons/fi';
 const Hero = () => {
   return (
     <>
-      <div className="relative -mt-13 pt-20 w-full h-[500px] md:h-screen flex items-center justify-center text-white overflow-hidden">
+      <div className="relative -mt-20 pt-20 w-full h-[500px] md:h-screen flex items-center justify-center text-white">
+        <div className='absolute right-50 top-2 bg-[#490D3E80] opacity- rounded-full w-100 h-100 blur-[100px]'/>
         <Image
-          src="/collective.svg"
+          src="/home/hero1.svg"
           alt="Featured content"
           fill
-          className="object-cover rounded-lg shadow-2xl"
+          className="object-cover z-20"
           priority
         />
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60 z-10" />
-
-        {/* Content */}
-        <div className="relative z-20 max-w-3xl text-center px-4">
-          <h2 className="text-3xl md:text-6xl font-bold mb-4">Join The Collective</h2>
-          <p className="text-base md:text-lg text-zinc-200 mb-8">
-            Explore a vast collection of exclusive NFTs minted by artists worldwide, own a piece of
-            music history and support your favorite artists directly.
+        <div className="relative z-30 max-w-3xl text-center px-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
+            Where Rising Artists Become Global Creators
+          </h2>
+          <p className="text-base md:text-lg max-w-2xl text-zinc-200 mb-8">
+            AudioBlocks Collective is an invite-only initiative that accelerates promising artists
+            through smart contracts, external distribution, and marketing support.
           </p>
 
           {/* CTA Button */}
-          <div className=" m-auto mt-10 md:mt-20 w-1/5 flex">
-            <Link href="/" className="bg-[#D2045B] hover:bg-pink-700 text-white p-5 rounded-lg font-medium flex flex-col shadow-lg transition">
-              <FiArrowUpRight className="text-3xl mb-4 ml-15" />
-              <span className='text-base text-left'>Join the AudioBlock Collective</span>
+          <div className="flex items-center justify-center mt-7 md:mt-20 ">
+            <Link
+              href="#"
+              className="bg-[#D2045B] flex items-center justify-between text-white font-medium px-6 py-3 rounded-full text-sm hover:bg-[#b8034b] transition"
+            >
+              Learn More
+              <div className="bg-black rounded-full p-1 ml-2">
+                <ArrowRight className="h-4 w-4 rotate-[300deg] text-white" />
+              </div>
             </Link>
           </div>
         </div>
+        
       </div>
     </>
   );
