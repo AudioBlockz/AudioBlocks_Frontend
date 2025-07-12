@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-// import Navbar from "./components/Navbar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en">
        <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark bg-black text-white`}>
-        <Navbar/>
         {children}
       </body>
     </html>

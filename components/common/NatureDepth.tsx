@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -365,7 +365,7 @@ export default function NatureDepthSlider({
           onClick={slidePrev}
           disabled={isAnimating}
         >
-          <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+          <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
       </div>
     )}
@@ -538,7 +538,7 @@ export default function NatureDepthSlider({
           onClick={slideNext}
           disabled={isAnimating}
         >
-          <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+          <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
       </div>
     )}
