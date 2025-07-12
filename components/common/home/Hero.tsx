@@ -21,7 +21,7 @@ const Hero = () => {
           <div className="flex flex-col md:flex-row gap-4">
             <Link
               href="#"
-              className="bg-[#D2045B] flex items-center justify-between text-white font-medium px-6 py-3 rounded-full text-sm hover:bg-[#b8034b] transition"
+              className="bg-[#D2045B] flex items-center justify-between text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#6C022F] hover:text-black transition"
             >
               Stream Now
               <div className="bg-black rounded-full p-1 ml-2">
@@ -30,7 +30,7 @@ const Hero = () => {
             </Link>
             <Link
               href="#"
-              className="border flex items-center justify-between border-[#F2AFC9] text-white font-medium px-6 py-3 rounded-full text-sm hover:bg-white/10 transition"
+              className="border flex items-center justify-between border-[#F2AFC9] text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#885FA8] hover:text-black transition"
             >
               Join Waitlist
               <div className="bg-[#D2045B] rounded-full p-1 ml-2">

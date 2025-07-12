@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
 
           {/* Support */}
-          <div>
+          <div className='md:pt-7'>
             <h3 className="text-[#5B5C61] font-semibold mb-4">Support</h3>
             <ul className="space-y-4 text-sm">
               <li>

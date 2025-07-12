@@ -3,6 +3,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const albums = {
   latest: Array(8).fill({
@@ -32,9 +33,9 @@ export default function SoundsSection() {
         <h1 className="font-semibold text-[#A3A3A3] text-4xl leading-[100%] tracking-[0%] capitalize font-poppins">
           Sounds <span className="text-white">You Shouldn’t </span> Miss
         </h1>
-        <button className="bg-[#1E181D] hover:bg-[#885FA8] text-[#F2AFC9] hover:text-[#1E181D] cursor-pointer rounded-full p-5">
+        <Link href="#" className="bg-[#1E181D] hover:bg-[#885FA8] text-[#F2AFC9] hover:text-[#1E181D] cursor-pointer rounded-full p-5">
           <ArrowRight className="text-7xl -rotate-45" />
-        </button>
+        </Link>
       </div>
 
       <Tabs.Root defaultValue="latest" className="flex  relative gap-10">
