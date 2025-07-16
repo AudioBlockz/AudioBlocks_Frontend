@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Variants, motion, AnimatePresence } from 'framer-motion';
+import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -83,6 +84,7 @@ const Navbar = () => {
 
         {/* Sign In */}
         <div className="hidden md:flex">
+          <DynamicWidget />
           <button className="px-4 py-2 gap-3 rounded-full bg-[#D2045B] hover:bg-[#B8043F] flex justify-between items-center text-white font-bold transition-all duration-200 whitespace-nowrap text-sm hover:scale-105 shadow-lg hover:shadow-xl">
             Sign in
             <div className="bg-black rounded-full p-1">

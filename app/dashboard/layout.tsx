@@ -3,7 +3,7 @@ import TopNavbar from "@/components/common/dashboard/topnavbar";
 
 const DashboardLayout=({ children }: { children: React.ReactNode })=> {
   return (
-    <div className="flex h-screen w-full bg-[#0f0f0f] text-white">
+    <div className="w-full">
       <Sidebar />
 
       <div className="flex-1 ml-0 md:ml-45 flex flex-col">

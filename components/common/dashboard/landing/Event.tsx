@@ -61,7 +61,6 @@ const Event = () => {
   return (
     <>
       <div>
-        {/* Upcoming Events Section */}
         <section className="w-11/12 mx-auto">
           <div className="flex justify-between border-b border-[#151515] pb-5 items-center">
             <h1 className="font-semibold text-2xl md:text-4xl leading-[100%] tracking-[0%] capitalize font-poppins">
