@@ -16,7 +16,7 @@ import {
 
 const navItems = [
   { name: "Explore", href: "/dashboard", icon: House },
-  { name: "My Playlist", href: "#", icon: ListMusic },
+  { name: "My Playlist", href: "/dashboard/playlist", icon: ListMusic },
   { name: "Metrics", href: "#", icon: BarChart2 },
   { name: "Community", href: "#", icon: Users },
 ]
@@ -44,9 +44,9 @@ const Sidebar = () => {
         } md:block bg-[#161616] text-white w-45 h-screen px-5 py-6 fixed top-0 left-0 z-40 shadow-md transition-all duration-300`}
       >
         {/* Logo */}
-        <div className="flex justify-left items-center mb-8">
+        <Link href="/" className="flex justify-left items-center mb-8">
           <Image src="/logo.png" alt="Logo" width={80} height={80} />
-        </div>
+        </Link>
 
         {/* Nav Links */}
         <nav className="flex flex-col gap-2 mb-10">
@@ -63,7 +63,7 @@ const Sidebar = () => {
                 }`}
                 onClick={() => setOpen(false)} // close on mobile
               >
-                <Icon size={18}  />
+                <Icon size={18} className="text-white"  />
                 {name}
               </Link>
             )

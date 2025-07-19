@@ -1,8 +1,6 @@
 "use client"
 
-// import NatureDepthSlider from "@/components/nature-depth-slider"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card"
 import NatureDepthSlider from "../../../components/common/NatureDepth"
 import NftCollections from "../../../components/common/NftCollections"
 

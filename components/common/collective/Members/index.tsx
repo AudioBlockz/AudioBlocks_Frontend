@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Slider from 'react-slick';
-import {  ArrowRight, MoveLeft, MoveRight } from 'lucide-react';
+import {  ArrowRight } from 'lucide-react';
 import { NextArrow, PrevArrow } from './navigation';
 
 
@@ -11,22 +11,22 @@ const Members = () => {
     {
       name: 'Misty Brown',
       role: 'Artist',
-      image: '/tech.jpg', // Replace with actual image path
+      image: '/tech.jpg', 
     },
     {
       name: 'Misty Brown',
       role: 'Artist',
-      image: '/home/frame2.jpg', // Replace with actual image path
+      image: '/home/frame2.jpg',
     },
     {
       name: 'Misty Brown',
       role: 'Artist',
-      image: '/image2.jpg', // Replace with actual image path
+      image: '/image2.jpg', 
     },
     {
       name: 'Misty Brown',
       role: 'Artist',
-      image: '/home/frame1.jpg', // Extra for sliding
+      image: '/home/frame1.jpg',
     },
   ];
 
