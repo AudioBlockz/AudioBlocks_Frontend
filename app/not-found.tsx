@@ -23,7 +23,7 @@ const NotFound = () => {
 
           <h1 className="text-2xl text-[#F4F4F5] md:text-3xl font-bold mb-4">Page Not Found</h1>
           <p className="max-w-xs mx-auto text-xs md:text-sm">
-            The page you're looking for can't be found. Double-check the URL and try again
+            The page you&lsquo;re looking for can&lsquo;t be found. Double-check the URL and try again
           </p>
         </div>
       </div>

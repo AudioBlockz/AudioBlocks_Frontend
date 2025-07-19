@@ -6,7 +6,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Variants, motion, AnimatePresence } from 'framer-motion';
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { DynamicUserProfile, useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useAccount } from 'wagmi';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -18,6 +21,61 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+
+  const { setShowAuthFlow } = useDynamicContext();
+  const { setShowDynamicUserProfile, user } = useDynamicContext();
+  const { primaryWallet } = useDynamicContext();
+  const { address } = useAccount();
+  const [shouldTriggerSignature, setShouldTriggerSignature] = useState(false);
+
+  const handleAuthentication = async () => {
+    setShouldTriggerSignature(true);
+    setShowAuthFlow(true);
+  };
+
+  useEffect(() => {
+    const runSignatureFlow = async () => {
+      if (!user?.userId || !primaryWallet || !address || !shouldTriggerSignature) return;
+
+      const message = `Welcome to AudioBlocks! Sign this message to verify your wallet and unlock a world of decentralized music. Timestamp: ${new Date().toISOString()}`;
+
+      try {
+        const signature: any = await primaryWallet.signMessage(message);
+
+        const token = await authenticateUser(address, signature, message, 'listener');
+        console.log('✅ Authenticated with token:', token);
+      } catch (err) {
+        console.error('❌ Signature/auth error:', err);
+      } finally {
+        setShouldTriggerSignature(false); // Prevent future auto-triggers
+      }
+    };
+
+    runSignatureFlow();
+  }, [user?.userId, primaryWallet, address, shouldTriggerSignature]);
+
+  const authenticateUser = async (
+    address: any,
+    signature: string,
+    message: string,
+    role: string
+  ) => {
+    const url = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+      const response = await axios.post(`${url}/wallet/auth/verify_signature`, {
+        address,
+        signature,
+        message,
+        role,
+      });
+      const token = response.data.token;
+      Cookies.set('audioblocks_jwt', token);
+      return token;
+    } catch (error: any) {
+      console.error(error.response?.data?.message);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,13 +142,26 @@ const Navbar = () => {
 
         {/* Sign In */}
         <div className="hidden md:flex">
-          <DynamicWidget />
-          <button className="px-4 py-2 gap-3 rounded-full bg-[#D2045B] hover:bg-[#B8043F] flex justify-between items-center text-white font-bold transition-all duration-200 whitespace-nowrap text-sm hover:scale-105 shadow-lg hover:shadow-xl">
-            Sign in
-            <div className="bg-black rounded-full p-1">
-              <ArrowRight className="h-4 w-4 rotate-[300deg]" />
-            </div>
-          </button>
+          {!user?.userId ? (
+            <button
+              onClick={handleAuthentication}
+              className="px-4 cursor-pointer py-2 gap-3 rounded-full bg-[#D2045B] hover:bg-[#B8043F] flex justify-between items-center text-white font-bold transition-all duration-200 whitespace-nowrap text-sm hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Sign in
+              <div className="bg-black rounded-full p-1">
+                <ArrowRight className="h-4 w-4 rotate-[300deg]" />
+              </div>
+            </button>
+          ) : (
+            <button
+              className="px-4 cursor-pointer py-2 gap-3 rounded-4xl bg-[#D2045B] hover:bg-[#B8043F] flex justify-between items-center text-white font-bold transition-all duration-200 whitespace-nowrap text-sm hover:scale-105 shadow-lg hover:shadow-xl"
+              onClick={() => setShowDynamicUserProfile(true)}
+            >
+              {user?.email}
+            </button>
+          )}
+
+          <DynamicUserProfile />
         </div>
 
         {/* Mobile Menu Button */}
@@ -139,15 +210,24 @@ const Navbar = () => {
               ))}
 
               <motion.div variants={itemVariants}>
-                <button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="mt-6 w-full px-4 py-2 rounded-full bg-[#D2045B] hover:bg-[#B8043F] text-white font-medium text-sm flex justify-center items-center gap-2"
-                >
-                  Sign in
-                  <div className="bg-black rounded-full p-1">
-                    <ArrowRight className="h-4 w-4 rotate-[300deg]" />
-                  </div>
-                </button>
+                {!user?.userId ? (
+                  <button
+                    onClick={handleAuthentication}
+                    className="mt-6 w-full px-4 py-2 rounded-full bg-[#D2045B] hover:bg-[#B8043F] text-white font-medium text-sm flex justify-center items-center gap-2"
+                  >
+                    Sign in
+                    <div className="bg-black rounded-full p-1">
+                      <ArrowRight className="h-4 w-4 rotate-[300deg]" />
+                    </div>
+                  </button>
+                ) : (
+                  <button
+                    className="mt-6 w-full px-4 py-2 rounded-full bg-[#D2045B] hover:bg-[#B8043F] text-white font-medium text-sm flex justify-center items-center gap-2"
+                    onClick={() => setShowDynamicUserProfile(true)}
+                  >
+                    {user?.email}
+                  </button>
+                )}
               </motion.div>
             </div>
           </motion.div>

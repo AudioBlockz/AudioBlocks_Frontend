@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Slider from 'react-slick';
-import {  ArrowRight, MoveLeft, MoveRight } from 'lucide-react';
+import {  ArrowRight } from 'lucide-react';
 import { NextArrow, PrevArrow } from './navigation';
 
 

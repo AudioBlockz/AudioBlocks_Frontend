@@ -1,10 +1,24 @@
 'use client';
 
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAccount } from 'wagmi';
 
 const Hero = () => {
+  const { setShowAuthFlow } = useDynamicContext();
+  const route = useRouter();
+  const { isConnected } = useAccount();
+  
+  const handleStream =()=>{
+    if (!isConnected){
+      setShowAuthFlow(true);
+    }else{
+      route.push("/dashboard");
+    }
+  }
   return (
     <section className="relative h-screen text-white py-35 overflow-hidden">
       <div className='absolute right-40 top-2 bg-[#490D3E80] rounded-full w-100 h-100 blur-[100px]'/>
@@ -19,15 +33,15 @@ const Hero = () => {
             Built for listeners who care and artists who dare.
           </p>
           <div className="flex flex-col md:flex-row gap-4">
-            <Link
-              href="#"
-              className="bg-[#D2045B] flex items-center justify-between text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#6C022F] hover:text-black transition"
+            <button
+              onClick={handleStream}
+              className="bg-[#D2045B] cursor-pointer flex items-center justify-between text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#6C022F] hover:text-black transition"
             >
               Stream Now
               <div className="bg-black rounded-full p-1 ml-2">
                 <ArrowRight className="h-4 w-4 rotate-[300deg] text-white" />
               </div>
-            </Link>
+            </button>
             <Link
               href="#"
               className="border flex items-center justify-between border-[#F2AFC9] text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#885FA8] hover:text-black transition"
@@ -46,9 +60,8 @@ const Hero = () => {
             <Image
               src="/home/frame1.jpg"
               alt="Main Artist"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-2xl"
+              fill
+              className="rounded-2xl object-cover"
             />
           </div>
 
@@ -56,9 +69,8 @@ const Hero = () => {
             <Image
               src="/home/frame2.jpg"
               alt="Secondary Artist"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-2xl opacity-90"
+              fill
+              className="rounded-2xl object-cover opacity-90"
             />
           </div>
         </div>
