@@ -18,7 +18,7 @@ const navItems = [
   { name: "Explore", href: "/dashboard", icon: House },
   { name: "My Playlist", href: "/dashboard/playlist", icon: ListMusic },
   { name: "Metrics", href: "#", icon: BarChart2 },
-  { name: "Community", href: "#", icon: Users },
+  { name: "Community", href: "/dashboard/community", icon: Users },
 ]
 
 const Sidebar = () => {
