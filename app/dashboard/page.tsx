@@ -8,7 +8,7 @@ import React from 'react';
 const page = () => {
   return (
     <>
-      <div className='px-4'>
+      <div>
         <p className="text-xs font-medium text-left text-white mb-2">Explore</p>
         <CategorySection />
         <Collections/>
