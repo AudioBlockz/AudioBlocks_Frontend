@@ -10,10 +10,8 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const ShareModal=({ link }: { link: string })=> {
   const [copied, setCopied] = useState(false);
-  const shareLink = 'https://audioblocks.com/vote-maty_brown';
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(shareLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -39,7 +37,7 @@ const ShareModal=({ link }: { link: string })=> {
           <p className="text-sm text-gray-300 mb-3">Share this link via</p>
 
           <div className="flex gap-4 mb-4">
-            <Link href="#" target="_blank" className='border p-1 rounded-md' rel="noopener noreferrer">
+            <Link href={`https://www.facebook.com/sharer/sharer.php?u=${link}`} target="_blank" className='border p-1 rounded-md' rel="noopener noreferrer">
               <FaFacebook className="w-6 h-6 hover:scale-110 text-[#1877F2] transition"/>
             </Link>
             <Link href="#" className='border p-1 rounded-md' target="_blank" title="Snapchat">
@@ -48,7 +46,7 @@ const ShareModal=({ link }: { link: string })=> {
             <Link href="#" className='border p-1 rounded-md'  target="_blank" title="X / Twitter">
               <FaXTwitter className="w-6 h-6 hover:scale-110 text-white transition" />
             </Link>
-            <Link href="#" className='border p-1 rounded-md' target="_blank" rel="noopener noreferrer">
+            <Link href={`https://t.me/share/url?url=${link}`} className='border p-1 rounded-md' target="_blank" rel="noopener noreferrer">
               <FaTelegramPlane className="w-6 h-6 hover:scale-110 transition bg-[#1877F2] p-1 rounded-full text-white" />
             </Link>
           </div>

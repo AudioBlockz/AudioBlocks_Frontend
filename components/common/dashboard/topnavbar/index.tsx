@@ -1,8 +1,9 @@
-"use client"
+'use client';
 
-import { FiSearch } from "react-icons/fi"
-import { Bell } from "lucide-react"
-import Image from "next/image"
+import { FiSearch } from 'react-icons/fi';
+import { Bell } from 'lucide-react';
+import Image from 'next/image';
+import UserMenu from './UserMenu';
 
 const TopNavbar = () => {
   return (
@@ -32,18 +33,10 @@ const TopNavbar = () => {
           <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
         </button>
 
-        <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-700">
-          <Image
-            src="/tech.jpg"
-            alt="User"
-            width={40}
-            height={40}
-            className="object-cover w-full h-full"
-          />
-        </div>
+        <UserMenu />
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default TopNavbar
+export default TopNavbar;

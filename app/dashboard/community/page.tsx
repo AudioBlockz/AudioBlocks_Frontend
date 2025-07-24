@@ -81,6 +81,8 @@ const artists = [
   },
 ];
 
+
+
 const CommunityTabs = () => {
   const [filter, setFilter] = useState('All');
   const [selectedTab, setSelectedTab] = useState('vote');
@@ -126,7 +128,7 @@ const CommunityTabs = () => {
             help them gain recognition
           </p>
 
-          <div className="flex mb-6">
+          <div className="flex flex-col md:flex-row mb-6">
             <div className="flex items-center bg-transparent border rounded-full px-4 py-2 mr-6">
               <FiSearch className="text-gray-400 text-lg" />
               <input
@@ -149,7 +151,7 @@ const CommunityTabs = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-7">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-7">
             {filteredArtists.map((artist, i) => (
               <Card
                 key={i}
