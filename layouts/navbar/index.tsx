@@ -7,9 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Variants, motion, AnimatePresence } from 'framer-motion';
 import { DynamicUserProfile, useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useAccount } from 'wagmi';
+import { Auth } from '@/hooks/useAuth';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -21,65 +19,20 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const {setShouldTriggerSignature} = Auth();
 
   const { setShowAuthFlow } = useDynamicContext();
   const { setShowDynamicUserProfile, user } = useDynamicContext();
-  const { primaryWallet } = useDynamicContext();
-  const { address } = useAccount();
-  const [shouldTriggerSignature, setShouldTriggerSignature] = useState(false);
 
   const handleAuthentication = async () => {
     setShouldTriggerSignature(true);
     setShowAuthFlow(true);
   };
 
-  useEffect(() => {
-    const runSignatureFlow = async () => {
-      if (!user?.userId || !primaryWallet || !address || !shouldTriggerSignature) return;
-
-      const message = `Welcome to AudioBlocks! Sign this message to verify your wallet and unlock a world of decentralized music. Timestamp: ${new Date().toISOString()}`;
-
-      try {
-        const signature: any = await primaryWallet.signMessage(message);
-
-        const token = await authenticateUser(address, signature, message, 'listener');
-        console.log('✅ Authenticated with token:', token);
-      } catch (err) {
-        console.error('❌ Signature/auth error:', err);
-      } finally {
-        setShouldTriggerSignature(false); // Prevent future auto-triggers
-      }
-    };
-
-    runSignatureFlow();
-  }, [user?.userId, primaryWallet, address, shouldTriggerSignature]);
-
-  const authenticateUser = async (
-    address: any,
-    signature: string,
-    message: string,
-    role: string
-  ) => {
-    const url = process.env.NEXT_PUBLIC_API_URL;
-
-    try {
-      const response = await axios.post(`${url}/wallet/auth/verify_signature`, {
-        address,
-        signature,
-        message,
-        role,
-      });
-      const token = response.data.token;
-      Cookies.set('audioblocks_jwt', token);
-      return token;
-    } catch (error: any) {
-      console.error(error.response?.data?.message);
-    }
-  };
-
+  
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20); // adjust 20 as needed
+      setScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -124,13 +77,16 @@ const Navbar = () => {
       <div className="flex h-[51px] items-center justify-between py-4 max-w-11/12 mx-auto">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <Image src="/logo2.png" height={100} width={100} alt="AudioBlocks Logo" />
+          <Image src="/logo3.svg" height={100} width={100} alt="AudioBlocks Logo" />
         </div>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex bg-[#0F0F0F] rounded-full border border-gray-800 p-1 items-center justify-between">
           <Link href="/" className={linkClass('/')}>
             Home
+          </Link>
+          <Link href="#" className={linkClass('#')}>
+            Artist Hub
           </Link>
           <Link href="/marketPlace" className={linkClass('/marketPlace')}>
             Marketplace
@@ -157,7 +113,7 @@ const Navbar = () => {
               className="px-4 cursor-pointer py-2 gap-3 rounded-4xl bg-[#D2045B] hover:bg-[#B8043F] flex justify-between items-center text-white font-bold transition-all duration-200 whitespace-nowrap text-sm hover:scale-105 shadow-lg hover:shadow-xl"
               onClick={() => setShowDynamicUserProfile(true)}
             >
-              {user?.email}
+              {user?.email} 
             </button>
           )}
 

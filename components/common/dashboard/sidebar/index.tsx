@@ -71,7 +71,7 @@ const Sidebar = () => {
         </nav>
 
         {/* Footer */}
-        <div className="absolute flex flex-col bottom-6 left-4 text-xs font-bold text-gray-400 space-y-4">
+        <div className="absolute flex flex-col bottom-20 left-4 text-xs font-bold text-gray-400 space-y-4">
           <Link className="hover:bg-gradient-to-r hover:from-[#D2045B] hover:to-[#885FA8] hover:bg-clip-text hover:text-transparent" href="#">Legal</Link>
           <Link className="hover:bg-gradient-to-r hover:from-[#D2045B] hover:to-[#885FA8] hover:bg-clip-text hover:text-transparent"  href="#">Privacy Policy</Link>
           <Link className="hover:bg-gradient-to-r hover:from-[#D2045B] hover:to-[#885FA8] hover:bg-clip-text hover:text-transparent"  href="#">Privacy Policy</Link>

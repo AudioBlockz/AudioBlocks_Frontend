@@ -205,7 +205,7 @@ const CommunityTabs = () => {
               </tr>
             </thead>
             <tbody>
-              {artists.slice(0, 5).map((a: any, i: any) => (
+              {artists.slice(0, 5).map((a, i) => (
                 <tr
                   key={i}
                   className="text-[#666C6C] hover:border cursor-pointer hover:bg-[#121212B8]"

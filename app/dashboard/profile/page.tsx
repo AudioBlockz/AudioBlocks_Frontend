@@ -1,13 +1,22 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { Headphones, History } from 'lucide-react';
 import Image from 'next/image';
 
-const page = () => {
+const ProfilePage = () => {
+  const router = useRouter();
+
+  const handleEditClick = () => {
+    router.push('/dashboard/profile/edit');
+  };
+
   return (
-    <div className="font-inter ">
+    <div className="font-inter">
       <p className="text-xs font-medium text-left text-white mb-2">Profile</p>
 
       <div className="bg-[#1E1F23] p-8 py-13 rounded-lg text-white flex justify-between">
-        <div className='flex items-center w-3/5'>
+        <div className="flex items-center w-3/5">
           <div className="mr-3">
             <Image
               src="/AFRO.jpg"
@@ -35,12 +44,18 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className=''>
-          <button className='bg-[#B81A3C] text-white cursor-pointer text-sm font-semibold px-4 py-2 rounded-full'>Edit Profile</button>
+
+        <div>
+          <button
+            onClick={handleEditClick}
+            className="bg-[#B81A3C] text-white cursor-pointer text-sm font-semibold px-4 py-2 rounded-full"
+          >
+            Edit Profile
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default ProfilePage;

@@ -97,7 +97,7 @@ const Discover = () => {
         {/* Carousel Section */}
         <div className="w-4/5">
           <Slider {...settings}  ref={sliderRef}>
-            {trackData[activeTab].map((track: any) => (
+            {trackData[activeTab].map((track) => (
               <div key={track.id} className="px-3">
                 <div className="bg-[#111] hover:bg-[#181818] rounded-lg overflow-hidden p-4 transition">
                   <Image
