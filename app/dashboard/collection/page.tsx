@@ -2,7 +2,7 @@
 
 import { ListFilter, UsersRound } from 'lucide-react';
 import Image from 'next/image';
-import { FiSearch, FiSliders } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 
 const dummyCollections = [
   {

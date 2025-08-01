@@ -4,6 +4,7 @@ import './globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Provider from '@/context/provider';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,7 +31,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark bg-black text-white`}
       >
-        <Provider>{children}</Provider>
+        <Provider>
+          <Toaster position="bottom-right" closeButton />
+          {children} 
+        </Provider>
       </body>
     </html>
   );

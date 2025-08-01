@@ -6,24 +6,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
+import Cookies from 'js-cookie';
+import { Auth } from '@/hooks/useAuth';
 
 const Hero = () => {
   const { setShowAuthFlow } = useDynamicContext();
   const route = useRouter();
   const { isConnected } = useAccount();
-  
-  const handleStream =()=>{
-    if (!isConnected){
+  const token = Cookies.get('audioblocks_jwt');
+  const { setShouldTriggerSignature } = Auth();
+
+  const handleStream = () => {
+    if (!isConnected) {
       setShowAuthFlow(true);
-    }else{
-      route.push("/dashboard");
+      setShouldTriggerSignature(true);
+    } else if (!token) {
+      setShouldTriggerSignature(true);
+    } else {
+      route.push('/dashboard/profile/edit');
     }
-  }
+  };
   return (
     <section className="relative h-screen text-white py-35 overflow-hidden">
-      <div className='absolute right-40 top-2 bg-[#490D3E80] rounded-full w-100 h-100 blur-[100px]'/>
+      <div className="absolute right-40 top-2 bg-[#490D3E80] rounded-full w-100 h-100 blur-[100px]" />
       <div className="w-4/5 mx-auto flex flex-col-reverse md:flex-row items-center justify-between">
-        {/* Left Text Content */}
         <div className="">
           <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-6">
             Discover Tomorrow’s <br className="hidden md:block" /> Music Today
@@ -54,7 +60,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Image Content */}
         <div className="relative flex items-center justify-center">
           <div className="relative w-[250px] h-[250px] z-20 rounded-2xl overflow-hidden border border-[#D9D9D9]">
             <Image
@@ -76,7 +81,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Bottom Wave Graphic */}
       <div className="bottom-0 left-0 w-full">
         <Image
           src="/home/hero2.svg"

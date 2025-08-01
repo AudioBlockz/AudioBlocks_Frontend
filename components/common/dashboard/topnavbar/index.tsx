@@ -2,12 +2,11 @@
 
 import { FiSearch } from 'react-icons/fi';
 import { Bell } from 'lucide-react';
-import Image from 'next/image';
 import UserMenu from './UserMenu';
 
 const TopNavbar = () => {
   return (
-    <header className="w-full px-4 md:px-6 py-4 shadow-md bg-[#161616] flex items-center justify-between">
+    <header className="w-full px-4 md:px-8  py-4 shadow-md bg-[#161616] flex items-center justify-between">
       {/* Left Side: Welcome + Date */}
       <div>
         <h2 className="text-sm md:text-base font-semibold">Welcome, Pete Lisk</h2>
@@ -28,8 +27,8 @@ const TopNavbar = () => {
 
       {/* Right: Notifications + Avatar */}
       <div className="flex items-center gap-4">
-        <button className="relative">
-          <Bell className="text-white" />
+        <button className="relative ">
+          <Bell className="text-white" size={20}/>
           <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
         </button>
 

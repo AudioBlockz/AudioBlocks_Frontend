@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
 
 interface CommentPanelProps {
   onClose: () => void;
-  trackId: string; // Unique identifier for the track
+  trackId: string;
 }
 
 const dummyComments = [
@@ -34,7 +34,7 @@ const dummyComments = [
   },
 ];
 
-const Comment = ({ onClose, trackId }: CommentPanelProps) => {
+const Comment = ({ onClose }: CommentPanelProps) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Comment = ({ onClose, trackId }: CommentPanelProps) => {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [onClose]);
 
   return (
     <motion.div

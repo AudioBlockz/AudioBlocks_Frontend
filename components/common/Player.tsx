@@ -1,17 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  FaPlay,
-  FaPause,
-  FaStepForward,
-  FaStepBackward,
-  FaRandom,
-  FaRedo,
-  FaHeart,
-  FaVolumeUp,
-  FaVolumeMute,
-} from 'react-icons/fa';
+import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 import Image from 'next/image';
 import {
   Dot,
@@ -26,22 +16,41 @@ import {
 } from 'lucide-react';
 import CommentPanel from './dashboard/Comment';
 
-const track = {
-  title: 'Relax and Unwind',
-  artist: 'Rozé',
-  cover: '/AFRO.jpg', // Replace with actual track cover image path
-  duration: 207, // in seconds
-  url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', // Replace with actual audio file path
-};
+const playlist = [
+  {
+    title: 'Relax and Unwind',
+    artist: 'Rozé',
+    cover: '/AFRO.jpg',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  },
+  {
+    title: 'Vibe Mix',
+    artist: 'Yemi Sax',
+    cover: '/AFRO.jpg',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+  },
+  {
+    title: 'Cool Session',
+    artist: 'Dunsin',
+    cover: '/AFRO.jpg',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+  },
+];
 
 export default function Player() {
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [shuffle, setShuffle] = useState(false);
+  const [repeat, setRepeat] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const trackId = 'track-001'
+
+  const currentTrack = playlist[currentIndex];
+  const trackId = `track-${currentIndex}`;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,6 +60,12 @@ export default function Player() {
     }, 1000);
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -63,13 +78,40 @@ export default function Player() {
   };
 
   const handleVolumeToggle = () => {
-    setIsMuted(!isMuted);
+    const newMuteState = !isMuted;
+    setIsMuted(newMuteState);
     if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
+      audioRef.current.muted = newMuteState;
     }
   };
 
-  const formatTime = (time) => {
+  const handleNext = () => {
+    let nextIndex = currentIndex + 1;
+    if (shuffle) {
+      nextIndex = Math.floor(Math.random() * playlist.length);
+    } else if (nextIndex >= playlist.length) {
+      nextIndex = 0;
+    }
+    setCurrentIndex(nextIndex);
+    setProgress(0);
+    setIsPlaying(true);
+  };
+
+  const handlePrev = () => {
+    if (audioRef.current?.currentTime && audioRef.current.currentTime > 3) {
+      audioRef.current.currentTime = 0;
+    } else {
+      const prevIndex = currentIndex === 0 ? playlist.length - 1 : currentIndex - 1;
+      setCurrentIndex(prevIndex);
+      setProgress(0);
+      setIsPlaying(true);
+    }
+  };
+
+  const toggleRepeat = () => setRepeat((prev) => !prev);
+  const toggleShuffle = () => setShuffle((prev) => !prev);
+
+  const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60)
       .toString()
@@ -78,91 +120,133 @@ export default function Player() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#272727] px-6 py-3 shadow-lg z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#272727] px-8 py-3 shadow-lg z-50">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
         {/* Left Controls */}
         <div className="flex items-center gap-3">
-          <button className="text-gray-300 hover:text-white">
+          <button onClick={toggleShuffle} className={`hover:text-gray-300 cursor-pointer text-white ${shuffle ? 'text-pink-500' : ''}`}>
             <Shuffle size={16} />
           </button>
-          <button className="text-gray-300 hover:text-white">
+          <button onClick={handlePrev} className="hover:text-gray-300 cursor-pointer text-white">
             <SkipBack size={16} />
           </button>
           <button
             onClick={togglePlay}
-            className="p-2 rounded-full bg-white flex items-center justify-center"
+            className="p-2 rounded-full bg-white flex items-center cursor-pointer justify-center"
           >
             {isPlaying ? (
-              <FaPause size={14} className="text-gray-500" />
+              <FaPause size={14} className="text-gray-800" />
             ) : (
-              <FaPlay size={14} className="text-gray-500" />
+              <FaPlay size={14} className="text-gray-800" />
             )}
           </button>
-          <button className="text-gray-300 hover:text-white">
+          <button onClick={handleNext} className="hover:text-gray-300 text-white">
             <SkipForward size={15} />
           </button>
-          <button className="text-gray-300 hover:text-white">
+          <button onClick={toggleRepeat} className={`hover:text-gray-300 text-white ${repeat ? 'text-pink-500' : ''}`}>
             <Repeat size={16} />
           </button>
         </div>
-        <div>
-          <Image
-            src={track.cover}
-            alt={track.title}
-            width={40}
-            height={40}
-            className="rounded-md object-cover"
-          />
+
+        {/* Track Info */}
+        <div className="h-12 w-12 relative">
+          <Image src={currentTrack.cover} alt={currentTrack.title} fill className="rounded-md object-cover" />
         </div>
         <div className="flex items-center gap-4 w-2/5">
           <div className="flex-1">
             <div className="flex items-center justify-center mb-3">
-              <div className="text-white font-medium mr-4 text-sm truncate">{track.title}</div>
+              <div className="text-white font-medium mr-4 text-sm truncate">{currentTrack.title}</div>
               <div className="text-gray-400 flex items-center text-xs truncate">
-                <Dot size={20} className="mr-4 text-white" /> {track.artist}
+                <Dot size={20} className="mr-4 text-white" /> {currentTrack.artist}
               </div>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-white w-8">{formatTime(progress)}</span>
-              <div className="w-full h-1 bg-gray-600 rounded">
-                <div
-                  className="h-1 bg-[#D2045B] rounded"
-                  style={{ width: `${(progress / track.duration) * 100}%` }}
-                ></div>
-              </div>
+              <input
+                type="range"
+                min={0}
+                max={duration}
+                step={1}
+                value={progress}
+                onChange={(e) => {
+                  const newTime = Number(e.target.value);
+                  if (audioRef.current) {
+                    audioRef.current.currentTime = newTime;
+                    setProgress(newTime);
+                  }
+                }}
+                className="w-full h-1 bg-gray-600 rounded appearance-none cursor-pointer accent-[#D2045B]"
+                style={{
+                  background: `linear-gradient(to right, #B6195B 0%, #B6195B ${
+                    (progress / duration) * 100
+                  }%, rgb(82, 82, 82) ${(progress / duration) * 100}%, rgb(82, 82, 82) 100%)`,
+                }}
+              />
               <span className="text-xs text-white w-8 text-right">
-                {formatTime(track.duration)}
+                {formatTime(duration)}
               </span>
             </div>
           </div>
         </div>
 
         {/* Right Controls */}
-        <div className="flex items-center border-l-2 pl-4 gap-4">
-          <button className="text-gray-300 cursor-pointer hover:text-white " onClick={() => setShowComments(true)}>
+        <div className="flex items-center border-l-2 pl-4 gap-4 relative">
+          <button
+            className="hover:text-gray-300 cursor-pointer text-white "
+            onClick={() => setShowComments(true)}
+          >
             <MessageSquare size={16} />
           </button>
-          <button className="text-gray-300 cursor-pointer hover:text-white">
+          <button className="hover:text-gray-300 cursor-pointer text-white">
             <ListPlus size={16} />
           </button>
-          <button className="text-gray-300 cursor-pointer hover:text-white">
+          <button className="hover:text-gray-300 font-bold cursor-pointer text-white">
             <Heart size={16} />
           </button>
-          <button className="text-gray-300 cursor-pointer hover:text-white">
+          <button className="hover:text-gray-300 cursor-pointer text-white">
             <Ellipsis size={16} />
           </button>
-          <button className="text-gray-300 cursor-pointer hover:text-white" onClick={handleVolumeToggle}>
-            {isMuted || volume === 0 ? <FaVolumeMute size={16} /> : <FaVolumeUp size={16} />}
-          </button>
+          <div className="relative group flex items-center justify-center">
+            <button className="hover:text-gray-300 text-white" onClick={handleVolumeToggle}>
+              {isMuted || volume === 0 ? <FaVolumeMute size={16} /> : <FaVolumeUp size={16} />}
+            </button>
+            <div className="absolute bottom-16 p-4 rounded-md bg-[#161616] rotate-[-90deg] items-center justify-center hidden group-hover:flex">
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={isMuted ? 0 : volume}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value);
+                  setVolume(val);
+                  if (audioRef.current) {
+                    audioRef.current.muted = false;
+                  }
+                  setIsMuted(false);
+                }}
+                className="w-24 h-1 bg-gray-300 rounded appearance-none cursor-pointer accent-[#D2045B]"
+              />
+            </div>
+          </div>
         </div>
 
+        {/* Audio Element */}
         <audio
           ref={audioRef}
-          src={track.url}
-          onEnded={() => setIsPlaying(false)}
-          onLoadedMetadata={(e) => setProgress(e.currentTarget.currentTime)}
+          src={currentTrack.url}
+          autoPlay
+          onEnded={() => {
+            if (repeat) {
+              audioRef.current?.play();
+            } else {
+              handleNext();
+            }
+          }}
+          onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         />
       </div>
+
       {showComments && <CommentPanel onClose={() => setShowComments(false)} trackId={trackId} />}
     </div>
   );
