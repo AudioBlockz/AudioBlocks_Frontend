@@ -64,7 +64,7 @@ const UserMenu = () => {
             {/* Close Icon */}
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#A3A3A3] hover:text-white absolute top-4 right-4"
+              className="text-[#A3A3A3] cursor-pointer hover:text-white absolute top-4 right-4"
             >
               <FiX size={22} />
             </button>
