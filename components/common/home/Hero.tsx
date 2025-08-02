@@ -8,13 +8,14 @@ import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
 import Cookies from 'js-cookie';
 import { Auth } from '@/hooks/useAuth';
+import FullScreenLoader from './FullScreenLoader';
 
 const Hero = () => {
   const { setShowAuthFlow } = useDynamicContext();
   const route = useRouter();
   const { isConnected } = useAccount();
   const token = Cookies.get('audioblocks_jwt');
-  const { setShouldTriggerSignature } = Auth();
+  const { setShouldTriggerSignature, loading } = Auth();
 
   const handleStream = () => {
     if (!isConnected) {
@@ -90,7 +91,11 @@ const Hero = () => {
           className="w-full h-auto"
         />
       </div>
+
+      {loading && <FullScreenLoader />}
     </section>
+
+
   );
 };
 

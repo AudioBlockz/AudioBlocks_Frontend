@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { Variants, motion, AnimatePresence } from 'framer-motion';
 import { DynamicUserProfile, useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { Auth } from '@/hooks/useAuth';
+import FullScreenLoader from '@/components/common/home/FullScreenLoader';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -19,7 +20,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const {setShouldTriggerSignature} = Auth();
+  const {setShouldTriggerSignature, loading} = Auth();
 
   const { setShowAuthFlow } = useDynamicContext();
   const { setShowDynamicUserProfile, user } = useDynamicContext();

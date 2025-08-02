@@ -5,11 +5,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 
+
 export const Auth = () => {
   const { user } = useDynamicContext();
   const { primaryWallet, handleLogOut } = useDynamicContext();
   const { address } = useAccount();
   const [shouldTriggerSignature, setShouldTriggerSignature] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const runSignatureFlow = async () => {
@@ -18,12 +20,14 @@ export const Auth = () => {
       const message = `Welcome to AudioBlocks! Sign this message to authenticate: ${new Date().toISOString()}`;
 
       try {
+        setLoading(true); 
         const signature: any = await primaryWallet.signMessage(message);
 
         await authenticateUser('listener', user.email!, address, signature, message);
       } catch (err: any) {
         console.log(err);
       } finally {
+        setLoading(false); 
         setShouldTriggerSignature(false); // Prevent future auto-triggers
       }
     };
@@ -84,5 +88,5 @@ export const Auth = () => {
     }
   };
 
-  return { setShouldTriggerSignature, handleLogOut };
+  return { setShouldTriggerSignature, handleLogOut, loading };
 };
