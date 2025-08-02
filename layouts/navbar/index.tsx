@@ -77,7 +77,7 @@ const Navbar = () => {
       <div className="flex h-[51px] items-center justify-between py-4 max-w-11/12 mx-auto">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <Image src="/logo3.svg" height={100} width={100} alt="AudioBlocks Logo" />
+          <Image src="/logo2.png" height={100} width={100} alt="AudioBlocks Logo" />
         </div>
 
         {/* Desktop Nav */}
