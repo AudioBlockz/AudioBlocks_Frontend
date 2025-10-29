@@ -12,6 +12,7 @@ import FullScreenLoader from '@/components/common/home/FullScreenLoader';
 
 const navLinks = [
   { name: 'Home', href: '/' },
+  { name: 'Artist Hub', href: '/artist-hub' },
   { name: 'Marketplace', href: '/marketPlace' },
   { name: 'Collective', href: '/collective' },
 ];
@@ -86,7 +87,7 @@ const Navbar = () => {
           <Link href="/" className={linkClass('/')}>
             Home
           </Link>
-          <Link href="#" className={linkClass('#')}>
+          <Link href="/artist-hub" className={linkClass('/artist-hub')}>
             Artist Hub
           </Link>
           <Link href="/marketPlace" className={linkClass('/marketPlace')}>
