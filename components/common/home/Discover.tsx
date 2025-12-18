@@ -52,7 +52,7 @@ const Discover = () => {
     <section className="py-12 bg-black text-white">
       {/* Header */}
       <div className="flex justify-between items-center w-4/5 mx-auto">
-        <h1 className="text-4xl font-semibold text-[#A3A3A3] font-poppins leading-tight tracking-tight">
+        <h1 className="md:text-4xl text-2xl font-semibold text-[#A3A3A3] font-poppins leading-tight tracking-tight">
           Buy, Sell <span className="text-white">& Discover</span> Tracks
         </h1>
         <Link href='#' className="bg-[#1E181D] hover:bg-[#885FA8] text-[#F2AFC9] hover:text-[#1E181D] rounded-full p-5">
@@ -61,9 +61,9 @@ const Discover = () => {
       </div>
 
       {/* Tabs and Carousel */}
-      <div className="flex w-4/5 pt-10 mx-auto">
+      <div className="flex md:flex-row flex-col gap-3 w-4/5 pt-10 mx-auto">
         {/* Sidebar Tabs */}
-        <aside className=" w-1/5 mr-6 space-y-3">
+        <aside className=" md:w-1/5 mr-6 space-y-3">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -95,7 +95,7 @@ const Discover = () => {
         </aside>
 
         {/* Carousel Section */}
-        <div className="w-4/5">
+        <div className="md:w-4/5">
           <Slider {...settings}  ref={sliderRef}>
             {trackData[activeTab].map((track) => (
               <div key={track.id} className="px-3">

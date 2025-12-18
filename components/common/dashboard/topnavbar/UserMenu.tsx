@@ -7,16 +7,13 @@ import { FiUser, FiRepeat, FiFolder, FiX } from 'react-icons/fi';
 import { FaWallet } from 'react-icons/fa';
 import Link from 'next/link';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
-import { Auth } from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
+import { useAuthFlow } from '@/hooks/useAuthFlow';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const { user } = useDynamicContext();
-  const { handleLogOut } = Auth();
-   const route = useRouter();
+  const { logout } = useAuthFlow();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -28,12 +25,6 @@ const UserMenu = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const logOut=()=>{
-    Cookies.remove("audioblocks_jwt");
-    handleLogOut();
-		route.push("/");
-
-  }
 
   return (
     <div className="relative z-50" ref={menuRef}>
@@ -116,7 +107,7 @@ const UserMenu = () => {
                 <span>Balance:</span>
                 <span className="font-medium text-[#666C6C]">11000 ABT</span>
               </div>
-              <button className='cursor-pointer hover:text-[#666C6C] transition' onClick={logOut}>Log out</button>
+              <button className='cursor-pointer hover:text-[#666C6C] transition' onClick={logout}>Log out</button>
             </div>
           </motion.div>
         )}

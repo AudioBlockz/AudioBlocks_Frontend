@@ -70,7 +70,7 @@ const HowItWorks = () => {
                 className="flex items-left px-4 py-3 border border-[#2E2E2E] rounded-lg hover:border-[#D2045B33]
                 "
               >
-                <div className="p-2 mr-2 rounded-full border hover:border-[#F2AFC9]">
+                <div className="p-2 h-8 w-8 mr-2 rounded-full border hover:border-[#F2AFC9]">
                   <CornerDownRight size={16} />
                 </div>
                 <div className="flex flex-col">
@@ -101,7 +101,7 @@ const HowItWorks = () => {
                 className="flex items-left px-4 py-3 border border-[#2E2E2E] rounded-lg hover:border-[#D2045B33]
                 "
               >
-                <div className="p-2 mr-2 rounded-full border hover:border-[#F2AFC9]">
+                <div className="p-2 h-8 w-8 mr-2 rounded-full border hover:border-[#F2AFC9]">
                   <CornerDownRight size={16} />
                 </div>
                 <div className="flex flex-col">

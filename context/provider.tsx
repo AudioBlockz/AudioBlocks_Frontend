@@ -1,65 +1,81 @@
-"use client"
-import {
-  DynamicContextProvider,
-} from "@dynamic-labs/sdk-react-core";
-import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
-import { createConfig, WagmiProvider } from "wagmi";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { http } from "viem";
-import { liskSepolia, mainnet, sepolia } from "viem/chains";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { ReactNode } from "react";
-import { SdkViewSectionType, SdkViewType } from "@dynamic-labs/sdk-api";
-
+'use client';
+import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
+import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
+import { createConfig, WagmiProvider } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { http } from 'viem';
+import { lisk, liskSepolia } from 'viem/chains';
+import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { ReactNode } from 'react';
+import { SdkViewSectionType, SdkViewType } from '@dynamic-labs/sdk-api';
 
 const config = createConfig({
-	chains: [mainnet, sepolia, liskSepolia],
-	multiInjectedProviderDiscovery: false,
-	transports: {
-		[mainnet.id]: http(),
+  chains: [lisk, liskSepolia],
+  multiInjectedProviderDiscovery: false,
+  transports: {
     [liskSepolia.id]: http(),
-    [sepolia.id]: http()
-	},
+    [lisk.id]: http(),
+  },
 });
+
+const evmNetworks = [
+  {
+    blockExplorerUrls: ['https://sepolia-blockscout.lisk.com/'],
+    chainId: 4202,
+    chainName: 'Lisk Sepolia',
+    iconUrls: ['https://cryptologos.cc/logos/lisk-lsk-logo.svg'],
+    name: 'Lisk Sepolia',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Lisk',
+      symbol: 'LSK',
+      iconUrl: 'https://app.dynamic.xyz/assets/networks/lisk.svg',
+    },
+    networkId: 4202,
+    rpcUrls: ['https://rpc.sepolia-api.lisk.com'],
+    vanityName: 'Lisk Sepolia',
+  },
+  
+];
 
 const queryClient = new QueryClient();
 
-const  Provider=({ children }: { children: ReactNode })=> {
+const Provider = ({ children }: { children: ReactNode }) => {
   return (
     <DynamicContextProvider
       settings={{
-				environmentId: "c686da1e-ac86-4bd4-a2f4-5fe6ff42ed85",
-				walletConnectors: [EthereumWalletConnectors],
+        environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID || '',
+        walletConnectors: [EthereumWalletConnectors],
         overrides: {
-      views: [
-        {
-          type: SdkViewType.Login,
-          sections: [
+          evmNetworks,
+          views: [
             {
-              type: SdkViewSectionType.Email,
-            },
-            {
-              type: SdkViewSectionType.Separator,
-              label: "Or",
-            },
-            {
-              type: SdkViewSectionType.Social,
-              defaultItem: "google",
+              type: SdkViewType.Login,
+              sections: [
+                {
+                  type: SdkViewSectionType.Email,
+                },
+                {
+                  type: SdkViewSectionType.Separator,
+                  label: 'Or',
+                },
+                {
+                  type: SdkViewSectionType.Social,
+                  defaultItem: 'google',
+                },
+              ],
             },
           ],
         },
-      ]}
-			}}
+      }}
     >
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <DynamicWagmiConnector>
-            {children}
-          </DynamicWagmiConnector>
+          <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
         </QueryClientProvider>
       </WagmiProvider>
     </DynamicContextProvider>
   );
-}
+};
 
 export default Provider;

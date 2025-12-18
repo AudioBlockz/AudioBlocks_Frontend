@@ -81,8 +81,6 @@ const artists = [
   },
 ];
 
-
-
 const CommunityTabs = () => {
   const [filter, setFilter] = useState('All');
   const [selectedTab, setSelectedTab] = useState('vote');
@@ -93,7 +91,9 @@ const CommunityTabs = () => {
 
   return (
     <>
-      <p className="text-xs capitalize font-medium text-left text-[#A3A3A3] mb-2">Community / <span className='text-white'>{selectedTab}</span>  </p>
+      <p className="text-xs capitalize font-medium text-left text-[#A3A3A3] mb-2">
+        Community / <span className="text-white">{selectedTab}</span>{' '}
+      </p>
       <div className="border-b mt-7">
         <h1 className="text-[#DACFD3] text-3xl font-bold mb-2">Community</h1>
       </div>
@@ -128,8 +128,9 @@ const CommunityTabs = () => {
             help them gain recognition
           </p>
 
-          <div className="flex flex-col md:flex-row mb-6">
-            <div className="flex items-center bg-transparent border rounded-full px-4 py-2 mr-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+            {/* Search Bar */}
+            <div className="flex items-center bg-transparent border rounded-full px-4 py-2 w-full md:w-auto">
               <FiSearch className="text-gray-400 text-lg" />
               <input
                 type="text"
@@ -138,11 +139,25 @@ const CommunityTabs = () => {
               />
             </div>
 
-            <div className="flex gap-2">
+            {/* Genre Buttons */}
+            <div
+              className="
+      flex 
+      gap-2 
+      flex-wrap 
+      md:flex-nowrap
+      overflow-x-auto
+      scrollbar-hide 
+      pb-1
+    "
+            >
               {genres.map((g) => (
                 <button
                   key={g}
-                  className={`px-4 py-1 font-medium cursor-pointer text-sm rounded-2xl border ${filter === g ? 'bg-[#D2045B] text-white' : 'bg-[#1C2022] text-[#A3A3A3]'}`}
+                  className={`
+          px-4 py-1 font-medium cursor-pointer text-sm rounded-2xl border whitespace-nowrap
+          ${filter === g ? 'bg-[#D2045B] text-white' : 'bg-[#1C2022] text-[#A3A3A3]'}
+        `}
                   onClick={() => setFilter(g)}
                 >
                   {g}

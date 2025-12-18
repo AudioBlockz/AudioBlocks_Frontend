@@ -108,7 +108,7 @@ export default function LayeredDepthSlider({
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [currentIndex,  interval, isHovered, pauseOnHover])
+  }, [currentIndex, interval, isHovered, pauseOnHover])
 
   // Progress animation
   useEffect(() => {

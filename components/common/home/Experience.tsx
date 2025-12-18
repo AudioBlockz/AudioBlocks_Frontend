@@ -5,26 +5,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAccount } from 'wagmi';
 import Cookies from 'js-cookie';
-import { Auth } from '@/hooks/useAuth';
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { useAuthFlow } from '@/hooks/useAuthFlow';
+import { useState } from 'react';
+import AuthChoiceModal from './AuthChoiceModal';
 
 const Experience = () => {
-  const { setShowAuthFlow } = useDynamicContext();
   const route = useRouter();
   const { isConnected } = useAccount();
   const token = Cookies.get('audioblocks_jwt');
-  const { setShouldTriggerSignature } = Auth();
 
-  const handleAuthentication = async () => {
-    setShouldTriggerSignature(true);
-  };
+  const { loading, startLogin, startRegister } = useAuthFlow();
+
+  const [showAuthChoice, setShowAuthChoice] = useState(false);
 
   const handleStream = () => {
-    if (!isConnected) {
-      setShouldTriggerSignature(true);
-      setShowAuthFlow(true);
-    } else if (!token) {
-      setShouldTriggerSignature(true);
+    if (!isConnected || !token) {
+      setShowAuthChoice(true);
+      return;
     } else {
       route.push('/dashboard/profile/edit');
     }
@@ -42,10 +39,11 @@ const Experience = () => {
           No more passive listening, Stream and enjoy your music while earning on Audioblocks
         </p>
       </div>
-      <div className="flex flex-col justify-center mt-6 md:flex-row gap-4">
+
+      <div className="flex flex-col md:w-full mt-4 w-3/5 mx-auto sm:flex-row gap-4 sm:w-auto justify-center">
         <button
           onClick={handleStream}
-          className="bg-[#D2045B] cursor-pointer flex items-center hover:bg-[#6C022F] hover:text-black justify-between text-white font-medium px-5 py-2 rounded-full text-sm transition"
+          className="bg-[#D2045B] cursor-pointer flex items-center justify-between text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#6C022F] hover:text-black transition"
         >
           Stream Now
           <div className="bg-black rounded-full p-1 ml-2">
@@ -54,7 +52,7 @@ const Experience = () => {
         </button>
         <Link
           href="#"
-          className="border flex items-center hover:bg-[#885FA8] hover:text-black justify-between border-[#F2AFC9] text-white font-medium px-5 py-2 rounded-full text-sm transition"
+          className="border flex items-center justify-between border-[#F2AFC9] text-white font-medium px-6 py-2 rounded-full text-sm hover:bg-[#885FA8] hover:text-black transition"
         >
           Join Waitlist
           <div className="bg-[#D2045B] rounded-full p-1 ml-2">
@@ -62,6 +60,20 @@ const Experience = () => {
           </div>
         </Link>
       </div>
+
+      {/* Auth choice modal */}
+      <AuthChoiceModal
+        open={showAuthChoice}
+        onClose={() => setShowAuthChoice(false)}
+        onLogin={() => {
+          setShowAuthChoice(false);
+          startLogin();
+        }}
+        onRegister={() => {
+          setShowAuthChoice(false);
+          startRegister();
+        }}
+      />
     </section>
   );
 };

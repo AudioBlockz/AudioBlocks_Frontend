@@ -25,7 +25,7 @@ const features = [
 const Featured = () => {
   return (
     <>
-      <div className="max-w-lg px-4 md:px-0 text-center mx-auto mt-10">
+      <div className="max-w-lg px-4 md:px-0 text-center mx-auto md:mt-10">
         <h1 className="font-semibold text-[#A3A3A3] text-2xl mb-2 md:text-4xl leading-[100%] tracking-[0%] capitalize font-poppins">
           Key <span className="text-white">Features</span> Overview
         </h1>
@@ -35,22 +35,22 @@ const Featured = () => {
         </p>
       </div>
       <div className="w-4/5 relative  m-auto grid md:grid-cols-3 grid-cols-1 py-7 md:py-15  gap-5">
-       <div className='absolute md:right-70 -z-10 -left-10 md:left-70 top-2 bg-[#490D3E80] rounded-full w-70 md:w-100 h-100 blur-[150px]'/>
+        <div className="absolute md:right-70 -z-10 -left-10 md:left-70 top-2 bg-[#490D3E80] rounded-full w-70 md:w-100 h-100 blur-[150px]" />
         {features.map((feature, id) => (
           <div key={id} className={`rounded-2xl border ${feature.border}`}>
-            <div className=" h-3/5 rounded-t-2xl w-full">
+            <div className="w-full rounded-t-2xl overflow-hidden">
               <Image
-                width={900}
-                height={900}
-                className="object-cover w-full h-full rounded-t-2xl"
-                loading="lazy"
                 src={feature.image}
-                alt="image"
+                alt={feature.title}
+                width={500}
+                height={300}
+                className="object-cover w-full h-48 md:h-72 rounded-t-2xl"
               />
             </div>
+
             <div className="px-6 py-8">
-              <h2 className='font-semibold text-base mb-2'>{feature.title}</h2>
-              <p className='font-normal text-sm text-[#A3A3A3]'>{feature.description}</p>
+              <h2 className="font-semibold text-base mb-2">{feature.title}</h2>
+              <p className="font-normal text-sm text-[#A3A3A3]">{feature.description}</p>
             </div>
           </div>
         ))}

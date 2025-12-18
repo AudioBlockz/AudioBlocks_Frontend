@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const protectedRoutes = ['/dashboard'];
 
-export default function middleware(req: NextRequest) {
+const middleware =(req: NextRequest)=> {
   const { pathname } = req.nextUrl;
 
   const token = req.cookies.get('audioblocks_jwt');
@@ -17,3 +17,5 @@ export default function middleware(req: NextRequest) {
 export const config = {
   matcher: protectedRoutes,
 };
+
+export default middleware;
